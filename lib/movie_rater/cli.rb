@@ -8,7 +8,7 @@ class MovieRater::CLI
 
   def list_genres
     puts "Top Rated Movies"
-    @movie = MovieRater::Movie.today
+    @movies = MovieRater::Movie.today
   end 
   
   def pick_genre
@@ -16,6 +16,8 @@ class MovieRater::CLI
     input = nil 
     while input != "exit"
     input = gets.strip.downcase
+    if input.to_i > 0 
+      puts @movies[input.to_i-1]
     case input 
       when "1"
         puts "More info on movie 1"
