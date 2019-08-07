@@ -7,25 +7,24 @@ class MovieRater::CLI
   end 
 
   def list_genres
-    puts "Today's Top Movies"
-    puts <<-DOC
-      1. Action
-      2. Adventure
-      3. Animation
-      4. Biography
-    DOC
+    puts "Top Rated Movies"
+    @movie = MovieRater::Movie.today
   end 
   
   def pick_genre
-    puts "Enter the genre you would like to see the ratings of or type exit:"
+    puts "Enter the movie you would like to see the ratings of, type list to see the list of movies or type exit:"
     input = nil 
     while input != "exit"
     input = gets.strip.downcase
     case input 
       when "1"
-        puts "More info on Action"
+        puts "More info on movie 1"
       when "2"
-        puts "More info on Adventure"
+        puts "More info on movie 1"
+      when "list"
+        list_genres
+      else 
+        puts "I don't understand that command"
      end
    end
   end
