@@ -4,13 +4,16 @@ require 'nokogiri'
 
 
 class Movie
-  attr_accessor :title, :bio
+  attr_accessor :title, :bio, :rating, :certificate, :genre
 
   @@all = []
 
-  def initialize(title, bio)
+  def initialize(title, bio, rating, certificate, genre)
     @title = title
     @bio = bio
+    @rating = rating 
+    @certificate = certificate
+    @genre = genre
     @@all << self
   end
 
@@ -22,14 +25,14 @@ end
 
 class CLI
   def start
-    puts "welcome. do you want to see the movie list?"
+    puts "Welcome. Do you want to see the movie list?"
     input = gets.strip
     
 
     case input.downcase
       when 'yes'
         list_movies
-      when 'exit'
+      when 'no'
         exit
       end
     end
@@ -46,14 +49,24 @@ class CLI
     input = gets.strip.to_i
 
     display_details(input)
-
+    
+    puts "Would you like to check another movie?"
+    input = gets.strip
+      
+      case input.downcase
+        when "yes"
+        
+          
   end
 
   def display_details(input)
     movie = Movie.all[input - 1]
-
-    puts movie.bio
-    puts movie.rating
+    
+    puts "You chose: #{movie.title}"
+    puts "Synopsis: #{movie.bio}"
+    puts "Certificate: #{movie.certificate}"
+    puts "Genre: #{movie.genre}"
+    puts "IMDB Rating: #{movie.rating}"
   end
   
 #scraper
@@ -62,11 +75,10 @@ doc = Nokogiri::HTML(html)
 cards = doc.css('div.lister-item.mode-advanced').each do |movie_card|
   title = movie_card.css('h3 a').text
   bio = movie_card.css('p.text-muted')[1].text.strip
-  rating = movie_card.css('span.certificate').text.strip
+  certificate = movie_card.css('span.certificate').text.strip
   genre = movie_card.css('span.genre').text.strip
   rating = movie_card.css('strong').text.strip
-  binding.pry
-  Movie.new(title, bio)
+  Movie.new(title, bio, rating, certificate, genre)
 end
 
 CLI.new.start
