@@ -9,6 +9,9 @@ class MovieRater::CLI
   def list_genres
     puts "Top Rated Movies"
     @movies = MovieRater::Movie.today
+    @movies.each.with_index(1) do |movie, i|
+      puts "#{i}. #{movie}"
+    end
   end 
   
   def pick_genre
@@ -17,15 +20,11 @@ class MovieRater::CLI
     while input != "exit"
     input = gets.strip.downcase
     if input.to_i > 0 
-      puts @movies[input.to_i-1]
-    case input 
-      when "1"
-        puts "More info on movie 1"
-      when "2"
-        puts "More info on movie 1"
-      when "list"
+      the_movie = @movies[input.to_i-1]
+      puts "The movie: #{the_movie.title}, in the #{the_movie.genre} genre, has a rating of #{the_movie.rating}. It was made in #{the_movie.release_year}."
+    elsif input == "list"
         list_genres
-      else 
+    else 
         puts "I don't understand that command"
      end
    end
