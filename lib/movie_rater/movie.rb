@@ -25,14 +25,15 @@ end
 
 class CLI
   def start
-    puts "Welcome. Do you want to see the movie list?"
+    puts "Welcome. Do you want to see the movie list? Y/N"
     input = gets.strip
     
 
     case input.downcase
-      when 'yes'
+      when 'y'
         list_movies
-      when 'no'
+        find_info
+      when 'n'
         exit
       end
     end
@@ -44,30 +45,34 @@ class CLI
     Movie.all.each.with_index(1) do |m, i|
 
       puts "#{i}. #{m.title}"
-    end
-    puts "type a number to get more info about the movie"
+
+  end
+  
+  def find_info
+    puts "Type a number to get more info about that movie"
     input = gets.strip.to_i
 
     display_details(input)
     
-    puts "Would you like to check another movie?"
+    puts "Would you like to check another movie? Y/N"
     input = gets.strip
-      
-      case input.downcase
-        when "yes"
-        
-          
+    
+    if input.downcase == "y"
+      list_movies
+      find_info
+    elsif input.downcase == "n"
+      exit
+    else 
+      exit
+    end
   end
 
   def display_details(input)
     movie = Movie.all[input - 1]
     
-    puts "You chose: #{movie.title}"
-    puts "Synopsis: #{movie.bio}"
-    puts "Certificate: #{movie.certificate}"
-    puts "Genre: #{movie.genre}"
-    puts "IMDB Rating: #{movie.rating}"
+    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}. "
   end
+end
   
 #scraper
 html = open('https://www.imdb.com/search/title/?groups=top_250&sort=user_rating')
