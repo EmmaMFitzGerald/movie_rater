@@ -1,78 +1,72 @@
-class MovieRater::Movie 
-  
-  attr_accessor :title, :release_year, :genre, :rating
-  
+require 'open-uri'
+require 'pry'
+require 'nokogiri'
+
+
+class Movie
+  attr_accessor :title, :bio
+
   @@all = []
-  
-  def initialize(title=nil, release_year=nil, genre=nil, rating=nil)
+
+  def initialize(title, bio)
     @title = title
-    @release_year = release_year
-    @genre = genre
-    @rating = rating
+    @bio = bio
     @@all << self
   end
-    
-  def self.all 
+
+  def self.all
     @@all
   end
-  
-  # def self.today
-  #   self.scrape_movies
-  # end
-   
-  def self.find(id)
-    self.all[id-1]
-  end
-
-  def title
-    @title ||= doc.search("div.lister-item-content h3.lister-item-header a").text
-  end
-
-  def release_year
-    @release_year ||= doc.search("span.lister-item-year").text
-  end
-
-  def genre
-    @genre ||= doc.search("span.genre").text
-  end
-
-  def rating
-    @rating ||= doc.search("div.ratings-bar strong").text
-  end
-
-  def doc
-    @doc ||= Nokogiri::HTML(open(self.url))
-  end
-   
-   
-#   #   # MovieRater::MovieScraper.new
-#   # def scrape_movies
-#   #   movies = []
-    
-#   #   movies << self.scrape_imdb
-#   #   # movie_1 = self.new 
-#   #   # movie_1.title = "The Shawshank Redemption"
-#   #   # movie_1.release_year = "1994"
-#   #   # movie_1.genre = "Drama"
-#   #   # movie_1.rating = "9.3"
-    
-#   #   # movie_2 = self.new 
-#   #   # movie_2.title = "The Godfather"
-#   #   # movie_2.release_year = "1972"
-#   #   # movie_2.genre = "Crime, Drama"
-#   #   # movie_2.rating = "9.2"
-    
-#   #   # [movie_1, movie_2]
-#   # end
-  
-#   # def self.scrape_imdb
-#   #   doc = Nokogiri::HTML(open("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating"))
-#   #   title = doc.search("div.lister-item-content h3.lister-item-header a").text
-#   #   release_year = doc.search("span.lister-item-year").text
-#   #   genre = doc.search("span.genre").text
-#   #   rating = doc.search("div.ratings-bar strong").text
-#   #   binding.pry
-#   # end
-  
-# end
 end
+
+
+class CLI
+  def start
+    puts "welcome. do you want to see the movie list?"
+    input = gets.strip
+    
+
+    case input.downcase
+      when 'yes'
+        list_movies
+      when 'exit'
+        exit
+      end
+    end
+  end
+
+
+  def list_movies
+
+    Movie.all.each.with_index(1) do |m, i|
+
+      puts "#{i}. #{m.title}"
+    end
+    puts "type a number to get more info about the movie"
+    input = gets.strip.to_i
+
+    display_details(input)
+
+  end
+
+  def display_details(input)
+    movie = Movie.all[input - 1]
+
+    puts movie.bio
+    puts movie.rating
+  end
+  
+#scraper
+html = open('https://www.imdb.com/search/title/?groups=top_250&sort=user_rating')
+doc = Nokogiri::HTML(html)
+cards = doc.css('div.lister-item.mode-advanced').each do |movie_card|
+  title = movie_card.css('h3 a').text
+  bio = movie_card.css('p.text-muted')[1].text.strip
+  rating = movie_card.css('span.certificate').text.strip
+  genre = movie_card.css('span.genre').text.strip
+  rating = movie_card.css('strong').text.strip
+  binding.pry
+  Movie.new(title, bio)
+end
+
+CLI.new.start
