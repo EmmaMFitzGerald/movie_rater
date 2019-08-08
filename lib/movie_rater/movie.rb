@@ -16,9 +16,9 @@ class MovieRater::Movie
     @@all
   end
   
-  def self.today
-    self.scrape_movies
-  end
+  # def self.today
+  #   self.scrape_movies
+  # end
    
   def self.find(id)
     self.all[id-1]
