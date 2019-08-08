@@ -2,6 +2,16 @@ class MovieRater::Movie
   
   attr_accessor :title, :release_year, :genre, :rating
   
+  @@all = []
+  
+    def initialize(title=nil, release_year=nil, genre=nil, rating=nil)
+      @title = title
+      @release_year = release_year
+      @genre = genre
+      @rating = rating
+      @@all << self
+    end
+  
   def self.today
     self.scrape_movies
   end
