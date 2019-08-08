@@ -27,6 +27,10 @@ class MovieRater::Movie
   
   def self.scrape_imdb
     doc = Nokogiri::HTML(open("https://www.imdb.com/search/title/?groups=top_250&sort=user_rating"))
+    title = doc.search("div.lister-item-content h3.lister-item-header a").text
+    release_year = doc.search("span.lister-item-year").text
+    genre = doc.search("span.genre").text
+    rating = doc.search("div.ratings-bar strong").text
     binding.pry
   end
   
