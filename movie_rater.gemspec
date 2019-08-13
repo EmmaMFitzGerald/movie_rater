@@ -5,7 +5,7 @@ require "movie_rater/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "movie_rater"
-  spec.version       = MovieRater::VERSION
+  spec.version       = Movie::VERSION
   spec.authors       = ["'Emma FitzGerald'"]
   spec.email         = ["'emmamariafitzgerald@gmail.com'"]
 

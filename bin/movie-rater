@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require_relative '../lib/movie_rater'
+#require_relative '../lib/movie_rater'
 
-MovieRater::CLI.new.call
+Movie::CLI.new.start
