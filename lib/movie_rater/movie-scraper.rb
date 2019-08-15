@@ -1,4 +1,5 @@
-class Scraper
+require "pry"
+class Movie::Scraper
 
   def get_page
     Nokogiri::HTML(open('https://www.imdb.com/search/title/?groups=top_250&sort=user_rating'))
@@ -11,6 +12,7 @@ class Scraper
   def make_movies
     scrape_movies_index.each do |m|
       Movie::Movie.new_from_index_page(m)
+      binding.pry
     end
   end
 end

@@ -2,6 +2,7 @@
 class Movie::CLI
   def start
     
+
     puts "Welcome. Do you want to see the movie list? Y/N"
     input = gets.strip
     
