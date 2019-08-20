@@ -12,7 +12,6 @@ class Movie::Scraper
   def make_movies
     scrape_movies_index.each do |m|
       Movie::Movie.new_from_index_page(m)
-      binding.pry
     end
   end
 end

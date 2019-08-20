@@ -20,16 +20,20 @@ class Movie::Movie
   def self.all
     @@all
   end
+  
+  def movie_card
+    
+  end
 
-  def new_from_index_page(movie)
+  def new_from_index_page(m)
    #html = open('https://www.imdb.com/search/title/?groups=top_250&sort=user_rating')
    #doc = Nokogiri::HTML(html)
    #cards = doc.css('div.lister-item.mode-advanced').each do |movie_card|
-    title = movie_card.css('h3 a').text
-    bio = movie_card.css('p.text-muted')[1].text.strip
-    certificate = movie_card.css('span.certificate').text.strip
-    genre = movie_card.css('span.genre').text.strip
-    rating = movie_card.css('strong').text.strip
+    title = m.css('h3 a').text
+    bio = m.css('p.text-muted')[1].text.strip
+    certificate = m.css('span.certificate').text.strip
+    genre = m.css('span.genre').text.strip
+    rating = m.css('strong').text.strip
     new(title, bio, rating, certificate, genre)
    end
 end
