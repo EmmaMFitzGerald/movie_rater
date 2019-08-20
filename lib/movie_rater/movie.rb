@@ -32,8 +32,18 @@ class Movie::Movie
     certificate = m.css('span.certificate').text.strip
     genre = m.css('span.genre').text.strip
     rating = m.css('strong').text.strip
-    url = m.css('h3 a').attr('href')
+    url = "imdb.com" + m.css('h3 a').attr('href') + "?ref_=adv_li_tt"
     new(title, bio, rating, certificate, genre, url)
    end
+   
+   
+  def awards
+    @awards ||= doc.css("span.awards-blurb").text
+  end
+
+  def doc
+    @doc ||= Nokogiri::HTML(open(self.url))
+  end
+   
 end
 
