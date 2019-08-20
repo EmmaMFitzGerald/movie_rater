@@ -3,7 +3,7 @@ class Movie::CLI
   def start
     
     Movie::Scraper.new.make_movies
-
+    
     puts "Welcome. Do you want to see the movie list? Y/N"
     input = gets.strip
     
@@ -49,6 +49,7 @@ class Movie::CLI
   def display_details(input)
     movie = Movie::Movie.all[input - 1]
     
-    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}. "
+    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}." 
   end
+  
 end

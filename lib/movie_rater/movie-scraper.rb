@@ -15,7 +15,7 @@ class Movie::Scraper
     end
   end
 end
-
+  
 # html = open('https://www.imdb.com/search/title/?groups=top_250&sort=user_rating')
 # doc = Nokogiri::HTML(html)
 # cards = doc.css('div.lister-item.mode-advanced').each do |movie_card|

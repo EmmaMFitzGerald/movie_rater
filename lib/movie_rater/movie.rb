@@ -4,16 +4,17 @@ require 'nokogiri'
 
 
 class Movie::Movie
-  attr_accessor :title, :bio, :rating, :certificate, :genre
+  attr_accessor :title, :bio, :rating, :certificate, :genre, :url
 
   @@all = []
 
-  def initialize(title, bio, rating, certificate, genre)
+  def initialize(title, bio, rating, certificate, genre, url)
     @title = title
     @bio = bio
     @rating = rating 
     @certificate = certificate
     @genre = genre
+    @url = url
     @@all << self
   end
 
@@ -31,7 +32,8 @@ class Movie::Movie
     certificate = m.css('span.certificate').text.strip
     genre = m.css('span.genre').text.strip
     rating = m.css('strong').text.strip
-    new(title, bio, rating, certificate, genre)
+    url = m.css('h3 a').attr('href')
+    new(title, bio, rating, certificate, genre, url)
    end
 end
 
