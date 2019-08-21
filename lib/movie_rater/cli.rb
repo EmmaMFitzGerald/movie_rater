@@ -32,7 +32,7 @@ class Movie::CLI
     movie = Movie::Movie.all[input - 1]
     display_details(movie, input)
     
-    puts "Would you like more information on this movie? Y/N"
+    puts "Would you like to see the awards this movie won/ was nominated for? Y/N"
     input = gets.strip 
     
     
@@ -61,6 +61,6 @@ class Movie::CLI
   end
   
   def display_awards(movie)
-    puts "This movie was #{movie.awards}"
+    puts "This movie was/ has:\n#{movie.awards}"
   end 
 end

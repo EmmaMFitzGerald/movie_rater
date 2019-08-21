@@ -37,7 +37,7 @@ class Movie::Movie
    end
    
   def awards
-    @awards ||= doc.css("span.awards-blurb").text
+    @awards ||= doc.css("span.awards-blurb b").text.gsub(/\s+/, " ").strip.chomp(".")
   end
 
   def doc
