@@ -32,7 +32,7 @@ class Movie::Movie
     certificate = m.css('span.certificate').text.strip
     genre = m.css('span.genre').text.strip
     rating = m.css('strong').text.strip
-    url = "imdb.com" + m.css('h3 a').attr('href') + "?ref_=adv_li_tt"
+    url = "https://imdb.com" + m.css('h3 a').attr('href') + "?ref_=adv_li_tt"
     new(title, bio, rating, certificate, genre, url)
    end
    

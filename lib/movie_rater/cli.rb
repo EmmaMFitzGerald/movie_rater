@@ -29,15 +29,15 @@ class Movie::CLI
   def find_info
     puts "Type a number to get more info about that movie"
     input = gets.strip.to_i
-
-    display_details(input)
+    movie = Movie::Movie.all[input - 1]
+    display_details(movie, input)
     
-    puts "Would you like move information on this movie? Y/N"
+    puts "Would you like more information on this movie? Y/N"
     input = gets.strip 
     
     
-    if input.downcase = 'y'
-      display_awards
+    if input.downcase == 'y'
+      display_awards(movie)
     else
       puts "Would you like to check another movie? Y/N"
       input = gets.strip
@@ -50,16 +50,17 @@ class Movie::CLI
       else 
         exit
       end
+    end 
   end
 
-  def display_details(input)
-    movie = Movie::Movie.all[input - 1]
+  def display_details(movie, input)
+    
    
     
-    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}. #{movie.awards}" 
+    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}." 
   end
   
-  def display_awards
+  def display_awards(movie)
     puts "This movie was #{movie.awards}"
   end 
 end
