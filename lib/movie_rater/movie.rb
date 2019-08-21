@@ -36,7 +36,6 @@ class Movie::Movie
     new(title, bio, rating, certificate, genre, url)
    end
    
-   
   def awards
     @awards ||= doc.css("span.awards-blurb").text
   end

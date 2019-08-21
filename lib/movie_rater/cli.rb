@@ -32,17 +32,24 @@ class Movie::CLI
 
     display_details(input)
     
-    puts "Would you like to check another movie? Y/N"
-    input = gets.strip
+    puts "Would you like move information on this movie? Y/N"
+    input = gets.strip 
     
-    if input.downcase == "y"
-      list_movies
-      find_info
-    elsif input.downcase == "n"
-      exit
-    else 
-      exit
-    end
+    
+    if input.downcase = 'y'
+      display_awards
+    else
+      puts "Would you like to check another movie? Y/N"
+      input = gets.strip
+      
+      if input.downcase == "y"
+        list_movies
+        find_info
+      elsif input.downcase == "n"
+        exit
+      else 
+        exit
+      end
   end
 
   def display_details(input)
@@ -52,4 +59,7 @@ class Movie::CLI
     puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}. #{movie.awards}" 
   end
   
+  def display_awards
+    puts "This movie was #{movie.awards}"
+  end 
 end
