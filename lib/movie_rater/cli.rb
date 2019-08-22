@@ -3,7 +3,7 @@ class Movie::CLI
     
     Movie::Scraper.new.make_movies
     
-    puts "Welcome. Do you want to see the movie list? Y/N"
+    puts "Welcome. Do you want to see a list of IMDB's Top 50 Rated Movies? Y/N"
     input = gets.strip
     
 
@@ -27,7 +27,7 @@ class Movie::CLI
   end
   
   def find_info
-    puts "Type a number to get more info about that movie"
+    puts "Type a number to get more information about that movie:"
     input = gets.strip.to_i
     movie = Movie::Movie.all[input - 1]
     display_details(movie, input)
@@ -39,7 +39,7 @@ class Movie::CLI
     if input.downcase == 'y'
       display_awards(movie)
     else
-      puts "Would you like to check another movie? Y/N"
+      puts "Would you like to find out more about another movie? Y/N"
       input = gets.strip
       
       if input.downcase == "y"
@@ -57,10 +57,10 @@ class Movie::CLI
     
    
     
-    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie with #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}." 
+    puts "You chose: #{movie.title}, number #{input} on the list. IMDB have rated this movie #{movie.rating} stars. In summary, this movie is about #{movie.bio} It is a #{movie.genre} movie and is rated #{movie.certificate}." 
   end
   
   def display_awards(movie)
-    puts "This movie was/ has:\n#{movie.awards}"
+    puts "#{movie.awards}"
   end 
 end
